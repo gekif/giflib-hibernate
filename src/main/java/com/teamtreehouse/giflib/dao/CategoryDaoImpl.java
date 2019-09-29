@@ -30,6 +30,7 @@ public class CategoryDaoImpl implements CategoryDao {
         session.close();
 
         return categories;
+
     }
 
 
@@ -41,6 +42,21 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void save(Category category) {
+
+        // Open A Session
+        Session session = sessionFactory.openSession();
+
+        // Begin Transaction
+        session.beginTransaction();
+
+        // Save The Category
+        session.save(category);
+
+        // Commit The Transaction
+        session.getTransaction().commit();
+
+        // Close The Session
+        session.close();
 
     }
 
