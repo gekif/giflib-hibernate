@@ -26,7 +26,7 @@ public class GifController {
     @RequestMapping("/")
     public String listGifs(Model model) {
         // TODO: Get all gifs
-        List<Gif> gifs = new ArrayList<>();
+        List<Gif> gifs = gifService.findAll();
 
         model.addAttribute("gifs", gifs);
         return "gif/index";
@@ -78,8 +78,14 @@ public class GifController {
     @RequestMapping("/upload")
     public String formNewGif(Model model) {
         // TODO: Add model attributes needed for new GIF upload form
-        model.addAttribute("gif", new Gif());
+        if (!model.containsAttribute("gif")) {
+            model.addAttribute("gif", new Gif());
+        }
+
         model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("action", "gifs");
+        model.addAttribute("heading", "Upload");
+        model.addAttribute("submit", "Add");
 
         return "gif/form";
     }
